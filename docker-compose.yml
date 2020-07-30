@@ -9,7 +9,7 @@ services:
     ports:
       - 7777:8765
     volumes:
-      - ./data:/home/jovyan
+      - ./data:/home/playground
     environment:
       GRANT_SUDO: "yes"
       JUPYTER_ENABLE_LAB: "yes"
