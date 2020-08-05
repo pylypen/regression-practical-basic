@@ -9,7 +9,7 @@ RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificate
     git mercurial subversion
 
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
-    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.31-Linux-x86_64.sh -O ~/miniconda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.2-Linux-x86_64.sh -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
     rm ~/miniconda.sh
 
@@ -17,7 +17,10 @@ RUN apt-get install -y curl grep sed dpkg
 
 ENV PATH /opt/conda/bin:$PATH
 
-RUN conda install pytorch torchvision cuda90 -c pytorch
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir "tensorflow-gpu>=2.1.*" && \
+    pip install --no-cache-dir keras && \
+    pip install --no-cache-dir imbalanced-learn
 
 RUN conda install ipython numpy pandas scikit-learn notebook matplotlib seaborn scipy pytables ipywidgets
 
